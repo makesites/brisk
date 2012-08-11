@@ -1,0 +1,40 @@
+{
+  "name": "brisk",
+  "version": "0.0.1",
+  "description": "Automation for Express.js",
+  "author": "makesites",
+  "contributors": [
+    {
+      "name": "Makis Tracend",
+      "email": "makis@makesit.es"
+    },
+    {
+      "name": "Lyndel Thomas",
+      "email": "lyndelt@gmail.com"
+    }
+  ],
+  "homepage": "http://makesites.org/brisk",
+  "keywords": [
+    "node", "express", "framework", "brisk"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/makesites/brisk"
+  },
+  "bugs": {
+    "url": "https://github.com/makesites/brisk/issues"
+  }, 
+  "licenses": [
+    {
+      "type": "Apache License, Version 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ], 
+  "main": "./index.js",
+  "engines": {
+    "node": ">0.6.x"
+  },
+  "dependencies": {
+    "express": ">2.5"
+  }
+}
