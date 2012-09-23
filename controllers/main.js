@@ -1,7 +1,7 @@
-var Class = require("../helpers/class")
+var Class = require("../helpers/class");
 
 main = Class.extend({
-  init: function(req, res){
+  index: function(req, res){
 		// db initialiazation
 		//...
 		// logic...
