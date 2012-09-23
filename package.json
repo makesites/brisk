@@ -35,7 +35,7 @@
     "node": ">0.6.x"
   },
   "dependencies": {
-    "express": ">2.5", 
+    "express": "3.x", 
     "underscore": "1.x"
   }
 }
