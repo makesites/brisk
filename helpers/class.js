@@ -1,8 +1,11 @@
-/* Simple JavaScript Inheritance
- * By John Resig http://ejohn.org/
+/*
+ * Brisk Class constructor
+ * 
+ * Based on the ' Simple JavaScript Inheritance' example by John Resig http://ejohn.org/
+ * Inspired by base2 and Prototype
  * MIT Licensed.
  */
-// Inspired by base2 and Prototype
+
 
   var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
   // The base Class implementation (does nothing)
