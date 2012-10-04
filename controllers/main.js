@@ -10,7 +10,7 @@ main = Class.extend({
 		// render 
 		//console.log( this );
 		//this.render(res);
-		res.send("here");
+		//res.send("here");
 	}
 	
 });
