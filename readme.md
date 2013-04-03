@@ -76,4 +76,4 @@ Created by Makis Tracend ([@tracend](http://twitter.com/tracend))
 
 Distributed through [Makesites.org](http://makesites.org)
 
-Released under the [MIT license](http://makesites.org/licenses/MIT)
+Released under the [Apache License, v2.0](http://makesites.org/licenses/APACHE-2.0)
