@@ -1,6 +1,6 @@
 var brisk = require("brisk"), 
 	Parent = require("./class"),
-	CORS = brisk.getLib("connect-cors");
+	CORS = brisk.getLib("connect-xcors");
 
 var helper = Parent.extend({
 	
