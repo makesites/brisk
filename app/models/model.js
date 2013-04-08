@@ -1,4 +1,4 @@
-var Main = require("brisk").getClass("main");  
+var Main = require("../helpers/class");
 
 var model = Main.extend({
 	init: function( site ){ 
