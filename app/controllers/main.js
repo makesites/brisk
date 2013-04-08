@@ -12,7 +12,12 @@ main = Class.extend({
 		//console.log( this );
 		//this.render(res);
 		//res.send("here");
-	}
+	},
+	
+    ensureAuthenticated: function(req, res, next) {
+		if (req.isAuthenticated()) { return next(); }
+		res.redirect('/');
+    }
 	
 });
 
