@@ -1,16 +1,23 @@
-// outputs data in json form for the client 
+// Data Controller - outputs data in json form for the client 
 
-var site = require('brisk');
 // base class
-var Main = site.getClass("main");
+var Parent = require('brisk').getBaseController("main");
 
-var data = Main.extend({
+var controller = Parent.extend({
+	
 	init: function(req, res){
 		// ...
 		res.end();
 	}, 
 	
+	render : function( res ){ 
+		var json = JSON.stringify( ( res.data || {} ) ); 
+		// validate the data before output... 
+		return res.send( json ); 
+	}
+
 });
 
+// helpers
 
-module.exports = data;
+module.exports = controller;
