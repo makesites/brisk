@@ -2,6 +2,10 @@ var Class = require("../helpers/class"),
 	DEV = !(process.env.NODE_ENV == "production");
 
 main = Class.extend({
+	// defaults
+	options: {
+		debug : DEV
+	}, 
 	
 	index: function(req, res){
 		// logic...
@@ -30,7 +34,7 @@ main.prototype.render = function(res){
 	res.render(res.view, null, function(err, result) {
 		//console.log('Render result:', result);
 		// compact output by removing carriage returns, tabs and extra whitespace
-		var html = (DEV) ? result : result.replace(/(\r\n|\n|\r|\t)/gm,"").replace(/\s+/gm, " ");
+		var html = (this.options.debug) ? result : result.replace(/(\r\n|\n|\r|\t)/gm,"").replace(/\s+/gm, " ");
 		res.send(html); // send rendered HTML back to client
 	});
 }
