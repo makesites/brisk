@@ -2,21 +2,24 @@ var Class = require("../helpers/class"),
 	DEV = !(process.env.NODE_ENV == "production");
 
 main = Class.extend({
-  index: function(req, res){
-		// db initialiazation
-		//...
+	
+	index: function(req, res){
 		// logic...
 		res.template = "main";
 		res.view = "init";
 		// render 
-		//console.log( this );
 		//this.render(res);
-		//res.send("here");
 	},
 	
     ensureAuthenticated: function(req, res, next) {
-		if (req.isAuthenticated()) { return next(); }
+		if (req.isAuthenticated()) { return (next) ? next() : true; }
+		// always redirect to the homepage if not authenticated (customize?)
 		res.redirect('/');
+		return false;
+    },
+	
+    isAuthenticated: function(req, res) {
+		return res.locals.authenticated || req.isAuthenticated();
     }
 	
 });
