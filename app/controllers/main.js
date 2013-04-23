@@ -1,4 +1,5 @@
-var Class = require("../helpers/class"), 
+var brisk = require("brisk"), 
+	Class = require("../helpers/class"), 
 	DEV = !(process.env.NODE_ENV == "production");
 
 main = Class.extend({
@@ -17,6 +18,8 @@ main = Class.extend({
 	
 	render : function(req, res){
 		var self = this;
+		// template vars
+		res.locals.site = brisk.loadConfig('site'); 
 		// get authentication status
 		res.locals.authenticated = res.locals.authenticated || req.isAuthenticated();
 		// access the user session in the views 
