@@ -32,6 +32,12 @@ main = Class.extend({
 			res.send(html); // send rendered HTML back to client
 		})
 	}, 
+	
+	logout: function(req, res){
+		req.logOut();
+		res.redirect('/');
+	}, 
+	
     ensureAuthenticated: function(req, res, next) {
 		if (req.isAuthenticated()) { return (next) ? next() : true; }
 		// always redirect to the homepage if not authenticated (customize?)
