@@ -16,6 +16,13 @@ main = Class.extend({
 	},
 	
 	render : function(req, res){
+		
+		// get authentication status
+		res.locals({ authenticated : req.isAuthenticated() });
+		// access the user session in the views 
+		if( typeof req.user != "undefined" ){
+			res.locals({ user : req.user });
+		}
 		//console.log( path.join(__dirname, '/views/'+res.template) );
 		//res.render(res.view, { layout: path.join(__dirname, '/views/'+res.template) });
 		res.render(res.view, null, function(err, result) {
