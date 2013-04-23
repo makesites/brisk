@@ -4,7 +4,8 @@ var Class = require("../helpers/class"),
 main = Class.extend({
 	// defaults
 	options: {
-		debug : DEV
+		debug : DEV, 
+		authenticated : null 
 	}, 
 	
 	index: function(req, res){
@@ -12,13 +13,13 @@ main = Class.extend({
 		res.template = "main";
 		res.view = "init";
 		// render 
-		//this.render(res);
+		this.render(req, res);
 	},
 	
 	render : function(req, res){
 		
 		// get authentication status
-		res.locals({ authenticated : req.isAuthenticated() });
+		res.locals({ authenticated : this.isAuthenticated( req, res ) });
 		// access the user session in the views 
 		if( typeof req.user != "undefined" ){
 			res.locals({ user : req.user });
@@ -36,20 +37,27 @@ main = Class.extend({
 	logout: function(req, res){
 		req.logOut();
 		res.redirect('/');
-	}, 
-	
-    ensureAuthenticated: function(req, res, next) {
-		if (req.isAuthenticated()) { return (next) ? next() : true; }
-		// always redirect to the homepage if not authenticated (customize?)
-		res.redirect('/');
-		return false;
-    },
-	
-    isAuthenticated: function(req, res) {
-		return res.locals.authenticated || req.isAuthenticated();
-    }
+	}
 	
 });
 
+// Helpers
+
+main.prototype.ensureAuthenticated = function(req, res, next) {
+	if( this.options.authenticated === null ){
+		this.options.authenticated = req.isAuthenticated();
+	}
+	if ( this.options.authenticated ) { return (next) ? next() : true; }
+	// always redirect to the homepage if not authenticated (customize?)
+	res.redirect('/');
+	return false;
+};
+
+main.prototype.isAuthenticated = function(req, res) {
+	if( this.options.authenticated === null ){
+		this.options.authenticated = req.isAuthenticated();
+	}
+	return this.options.authenticated;
+};
 
 module.exports = main;
