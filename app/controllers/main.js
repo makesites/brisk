@@ -23,9 +23,12 @@ main = Class.extend({
 		// get authentication status
 		res.locals.authenticated = res.locals.authenticated || req.isAuthenticated();
 		// access the user session in the views 
+		res.locals.user = res.locals.user || ( ( typeof req.user != "undefined" ) ? req.user : false );
+		/*
 		if( typeof req.user != "undefined" ){
 			res.locals({ user : req.user });
 		}
+		*/
 		//console.log( path.join(__dirname, '/views/'+res.template) );
 		//res.render(res.view, { layout: path.join(__dirname, '/views/'+res.template) });
 		res.render(res.view, null, function(err, result) {
@@ -46,11 +49,16 @@ main = Class.extend({
 // Helpers
 
 main.prototype.ensureAuthenticated = function(req, res, next) {
+	// get local vars 
 	res.locals.authenticated = res.locals.authenticated || req.isAuthenticated();
-	if ( res.locals.authenticated ) { return (next) ? next() : true; }
+	res.locals.user = res.locals.user || ( ( typeof req.user != "undefined" ) ? req.user : false );
+	// set local vars 
+	var authenticated = res.locals.authenticated;
+	var user = res.locals.user;
 	// always redirect to the homepage if not authenticated (customize?)
-	res.redirect('/');
-	return false;
+	if( !authenticated || !user ) return res.redirect('/');
+	// otherwise call callback if available...
+	return (next) ? next() : true;
 };
 
 main.prototype.isAuthenticated = function(req, res) {
