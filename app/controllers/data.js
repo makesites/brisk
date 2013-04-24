@@ -10,7 +10,7 @@ var controller = Parent.extend({
 		res.end();
 	}, 
 	
-	render : function( res ){ 
+	render : function( req, res ){ 
 		var json = JSON.stringify( ( res.data || {} ) ); 
 		// validate the data before output... 
 		return res.send( json ); 
