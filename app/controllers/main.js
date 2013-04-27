@@ -17,8 +17,11 @@ main = Class.extend({
 	},
 	
 	render : function(req, res){
-		var self = this;
-		// template vars
+        // this is a private method - no direct requests are allowed
+        this.isPrivate("render", req, res);
+        //
+        var self = this;
+        // template vars
 		res.locals.site = brisk.loadConfig('site'); 
 		// get authentication status
 		res.locals.authenticated = res.locals.authenticated || req.isAuthenticated();
@@ -48,22 +51,32 @@ main = Class.extend({
 
 // Helpers
 
+main.prototype.isPrivate = function(fn, req, res) {
+    return (req.params.method == fn || req.params.method == "isPrivate") ? res.end() : true;  
+}
+
 main.prototype.ensureAuthenticated = function(req, res, next) {
-	// get local vars 
-	res.locals.authenticated = res.locals.authenticated || req.isAuthenticated();
-	res.locals.user = res.locals.user || ( ( typeof req.user != "undefined" ) ? req.user : false );
-	// set local vars 
-	var authenticated = res.locals.authenticated;
-	var user = res.locals.user;
-	// always redirect to the homepage if not authenticated (customize?)
-	if( !authenticated || !user ) return res.redirect('/');
-	// otherwise call callback if available...
-	return (next) ? next() : true;
+    // this is a private method - no direct requests are allowed
+    this.isPrivate("ensureAuthenticated", req, res);
+    // get local vars 
+    res.locals.authenticated = res.locals.authenticated || req.isAuthenticated();
+    res.locals.user = res.locals.user || ( ( typeof req.user != "undefined" ) ? req.user : false );
+    // set local vars 
+    var authenticated = res.locals.authenticated;
+    var user = res.locals.user;
+    // always redirect to the homepage if not authenticated (customize?)
+    if( !authenticated || !user ) return res.redirect('/');
+    // otherwise call callback if available...
+    return (next) ? next() : true;
 };
 
 main.prototype.isAuthenticated = function(req, res) {
-	res.locals.authenticated = res.locals.authenticated || req.isAuthenticated();
-	return res.locals.authenticated;
+    // this is a private method - no direct requests are allowed
+    this.isPrivate("isAuthenticated", req, res);
+    //
+    res.locals.authenticated = res.locals.authenticated || req.isAuthenticated();
+    return res.locals.authenticated;
 };
+
 
 module.exports = main;
