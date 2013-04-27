@@ -7,8 +7,18 @@ var controller = Parent.extend({
 	
 	init: function(req, res){
 		// ...
-		res.end();
 	}, 
+    
+    index: function(req, res){
+        // what methods this endpoint supports
+        this.rest({
+            get: read, 
+            post: create, 
+            update: update, 
+            del: del
+        }, 
+        req, res);
+    }, 
 	
 	render : function( req, res ){ 
 		var json = JSON.stringify( ( res.data || {} ) ); 
@@ -19,5 +29,24 @@ var controller = Parent.extend({
 });
 
 // helpers
+
+// CRUD operations
+
+function create(){
+    
+}
+
+function read(){
+    
+}
+
+function update(){
+    
+}
+
+function del(){
+    // ...
+}
+
 
 module.exports = controller;
