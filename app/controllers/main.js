@@ -45,7 +45,37 @@ main = Class.extend({
 	logout: function(req, res){
 		req.logOut();
 		res.redirect('/');
-	}
+	}, 
+    
+    rest : function( methods, req, res ){
+	    // this is a private method - no direct requests are allowed
+        this.isPrivate('rest', req, res );
+        // most controllers will only require GET requests to be accepted 
+        // explicitly define the support of other methods by adding the additional CRUD helpers
+        // in this.rest({ get, post, update, del },
+        //
+        switch( req.method ){
+            
+            case "GET":
+                return (methods.get) ? methods.get.call(this, req, res) : res.end();
+            break;
+            case "POST":
+                return (methods.post) ? methods.post.call(this, req, res) : res.end();
+            break;
+            case "UPDATE":
+                return (methods.update) ? methods.update.call(this, req, res) : res.end();
+            break;
+            case "DELETE":
+                return (methods.del) ? methods.del.call(this, req, res) : res.end();
+            break;
+            default: 
+                // all other requests just redirect to the homepage
+                return res.redirect('/');
+            break;
+            
+        }
+        
+    }
 	
 });
 
