@@ -63,30 +63,30 @@ main = Class.extend({
             case "GET":
                 
                 // exit now if no method defined
-                if ( !methods.get ) res.end();
+                if ( !methods.read ) res.end();
                 // authenticate if needed
                 if ( res.auth.get ){
                     return  this.ensureAuthenticated(function(){ 
-                        methods.get.call(self, req, res);
+                        methods.read.call(self, req, res);
                     });
                 } else {
                     // move straight to the method
-                    methods.get.call(self, req, res);
+                    methods.read.call(self, req, res);
                 }
                 
             break;
             case "POST":
                 
                 // exit now if no method defined
-                if ( !methods.post ) res.end();
+                if ( !methods.create ) res.end();
                 // authenticate if needed
                 if ( res.auth.post ){
                     return  this.ensureAuthenticated(function(){ 
-                        methods.post.call(self, req, res);
+                        methods.create.call(self, req, res);
                     });
                 } else {
                     // move straight to the method
-                    methods.post.call(self, req, res);
+                    methods.create.call(self, req, res);
                 }
                 
             break;
@@ -108,15 +108,15 @@ main = Class.extend({
             case "DELETE":
                 
                 // exit now if no method defined
-                if ( !methods.delete ) res.end();
+                if ( !methods.del ) res.end();
                 // authenticate if needed
                 if ( res.auth.delete ){
                     return  this.ensureAuthenticated(function(){ 
-                        methods.delete.call(self, req, res);
+                        methods.del.call(self, req, res);
                     });
                 } else {
                     // move straight to the method
-                    methods.delete.call(self, req, res);
+                    methods.del.call(self, req, res);
                 }
                 
             break;
