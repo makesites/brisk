@@ -54,19 +54,71 @@ main = Class.extend({
         // explicitly define the support of other methods by adding the additional CRUD helpers
         // in this.rest({ get, post, update, del },
         //
+        var self = this;
+        // authentication container
+        res.auth = res.auth || {};
+         
         switch( req.method ){
             
             case "GET":
-                return (methods.get) ? methods.get.call(this, req, res) : res.end();
+                
+                // exit now if no method defined
+                if ( !methods.get ) res.end();
+                // authenticate if needed
+                if ( res.auth.get ){
+                    return  this.ensureAuthenticated(function(){ 
+                        methods.get.call(self, req, res);
+                    });
+                } else {
+                    // move straight to the method
+                    methods.get.call(self, req, res);
+                }
+                
             break;
             case "POST":
-                return (methods.post) ? methods.post.call(this, req, res) : res.end();
+                
+                // exit now if no method defined
+                if ( !methods.post ) res.end();
+                // authenticate if needed
+                if ( res.auth.post ){
+                    return  this.ensureAuthenticated(function(){ 
+                        methods.post.call(self, req, res);
+                    });
+                } else {
+                    // move straight to the method
+                    methods.post.call(self, req, res);
+                }
+                
             break;
             case "UPDATE":
-                return (methods.update) ? methods.update.call(this, req, res) : res.end();
+                
+                // exit now if no method defined
+                if ( !methods.update ) res.end();
+                // authenticate if needed
+                if ( res.auth.update ){
+                    return  this.ensureAuthenticated(function(){ 
+                        methods.update.call(self, req, res);
+                    });
+                } else {
+                    // move straight to the method
+                    methods.update.call(self, req, res);
+                }
+                
             break;
             case "DELETE":
-                return (methods.del) ? methods.del.call(this, req, res) : res.end();
+                
+                // exit now if no method defined
+                if ( !methods.delete ) res.end();
+                // authenticate if needed
+                if ( res.auth.delete ){
+                    return  this.ensureAuthenticated(function(){ 
+                        methods.delete.call(self, req, res);
+                    });
+                } else {
+                    // move straight to the method
+                    methods.delete.call(self, req, res);
+                }
+                
             break;
             default: 
                 // all other requests just redirect to the homepage
