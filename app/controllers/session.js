@@ -17,6 +17,8 @@ var controller = Parent.extend({
         if( res.data.password ){ 
             delete res.data.password;
         }
+        // authentication flag
+        res.data.auth = this.isAuthenticated(req, res);
         // 
         this.render(req, res);
     } 
