@@ -12,8 +12,11 @@ var controller = Parent.extend({
     index: function(req, res){
         // get user (with fallback)
         res.data = req.user || {};
-        // 
-        
+        // filter data
+        // - will never need the password on the client
+        if( res.data.password ){ 
+            delete res.data.password;
+        }
         // 
         this.render(req, res);
     } 
