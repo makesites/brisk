@@ -12,8 +12,8 @@ var controller = Parent.extend({
     index: function(req, res){
         // what methods this endpoint supports
         this.rest({
-            get: read, 
-            post: create, 
+            create: create, 
+            read: read, 
             update: update, 
             del: del
         }, 
