@@ -89,12 +89,12 @@ main = Class.extend({
                 }
                 
             break;
-            case "UPDATE":
+            case "PUT":
                 
                 // exit now if no method defined
                 if ( !methods.update ) return res.end();
                 // authenticate if needed
-                if ( res.auth.indexOf("update") > -1 ){
+                if ( res.auth.indexOf("put") > -1 ){
                     return  this.ensureAuthenticated(req, res, function(){ 
                         methods.update.call(self, req, res);
                     });
