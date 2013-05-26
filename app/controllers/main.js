@@ -17,11 +17,11 @@ main = Class.extend({
 	},
 
 	render : function(req, res){
-        // this is a private method - no direct requests are allowed
-        this.isPrivate(req, res, "render");
-        //
-        var self = this;
-        // template vars
+		// this is a private method - no direct requests are allowed
+		this.isPrivate(req, res, "render");
+		//
+		var self = this;
+		// template vars
 		res.locals.site = brisk.loadConfig('site');
 		// get authentication status
 		res.locals.authenticated = res.locals.authenticated || req.isAuthenticated();
@@ -49,116 +49,116 @@ main = Class.extend({
 		res.redirect('/');
 	},
 
-    rest : function( methods, req, res ){
-	    // this is a private method - no direct requests are allowed
-        this.isPrivate(req, res, "rest");
-        // most controllers will only require GET requests to be accepted
-        // explicitly define the support of other methods by adding the additional CRUD helpers
-        // in this.rest({ get, post, update, del },
-        //
-        var self = this;
-        // authentication container
-        res.auth = res.auth || [];
+	rest : function( methods, req, res ){
+		// this is a private method - no direct requests are allowed
+		this.isPrivate(req, res, "rest");
+		// most controllers will only require GET requests to be accepted
+		// explicitly define the support of other methods by adding the additional CRUD helpers
+		// in this.rest({ get, post, update, del },
+		//
+		var self = this;
+		// authentication container
+		res.auth = res.auth || [];
 
-        switch( req.method ){
+		switch( req.method ){
 
-            case "GET":
-                // exit now if no method defined
-                if ( !methods.read ) return res.end();
-                // authenticate if needed
-                if ( res.auth.indexOf("get") > -1 ){
-                    return  this.ensureAuthenticated(req, res, function(){
-                        methods.read.call(self, req, res);
-                    });
-                } else {
-                    // move straight to the method
-                    methods.read.call(self, req, res);
-                }
+			case "GET":
+				// exit now if no method defined
+				if ( !methods.read ) return res.end();
+				// authenticate if needed
+				if ( res.auth.indexOf("get") > -1 ){
+					return  this.ensureAuthenticated(req, res, function(){
+						methods.read.call(self, req, res);
+					});
+				} else {
+					// move straight to the method
+					methods.read.call(self, req, res);
+				}
 
-            break;
-            case "POST":
+			break;
+			case "POST":
 
-                // exit now if no method defined
-                if ( !methods.create ) return res.end();
-                // authenticate if needed
-                if ( res.auth.indexOf("post") > -1 ){
-                    return  this.ensureAuthenticated(req, res, function(){
-                        methods.create.call(self, req, res);
-                    });
-                } else {
-                    // move straight to the method
-                    methods.create.call(self, req, res);
-                }
+				// exit now if no method defined
+				if ( !methods.create ) return res.end();
+				// authenticate if needed
+				if ( res.auth.indexOf("post") > -1 ){
+					return  this.ensureAuthenticated(req, res, function(){
+						methods.create.call(self, req, res);
+					});
+				} else {
+					// move straight to the method
+					methods.create.call(self, req, res);
+				}
 
-            break;
-            case "PUT":
+			break;
+			case "PUT":
 
-                // exit now if no method defined
-                if ( !methods.update ) return res.end();
-                // authenticate if needed
-                if ( res.auth.indexOf("put") > -1 ){
-                    return  this.ensureAuthenticated(req, res, function(){
-                        methods.update.call(self, req, res);
-                    });
-                } else {
-                    // move straight to the method
-                    methods.update.call(self, req, res);
-                }
+				// exit now if no method defined
+				if ( !methods.update ) return res.end();
+				// authenticate if needed
+				if ( res.auth.indexOf("put") > -1 ){
+					return  this.ensureAuthenticated(req, res, function(){
+						methods.update.call(self, req, res);
+					});
+				} else {
+					// move straight to the method
+					methods.update.call(self, req, res);
+				}
 
-            break;
-            case "DELETE":
+			break;
+			case "DELETE":
 
-                // exit now if no method defined
-                if ( !methods.del ) return res.end();
-                // authenticate if needed
-                if ( res.auth.indexOf("delete") > -1 ){
-                    return  this.ensureAuthenticated(req, res, function(){
-                        methods.del.call(self, req, res);
-                    });
-                } else {
-                    // move straight to the method
-                    methods.del.call(self, req, res);
-                }
+				// exit now if no method defined
+				if ( !methods.del ) return res.end();
+				// authenticate if needed
+				if ( res.auth.indexOf("delete") > -1 ){
+					return  this.ensureAuthenticated(req, res, function(){
+						methods.del.call(self, req, res);
+					});
+				} else {
+					// move straight to the method
+					methods.del.call(self, req, res);
+				}
 
-            break;
-            default:
-                // all other requests just redirect to the homepage
-                return res.redirect('/');
-            break;
+			break;
+			default:
+				// all other requests just redirect to the homepage
+				return res.redirect('/');
+			break;
 
-        }
+		}
 
-    }
+	}
 
 });
 
 // Helpers
 
 main.prototype.isPrivate = function(req, res, fn) {
-    return ( req.params.method == fn || req.params.method == "isPrivate" ) ? res.end() : true;
+	return ( req.params.method == fn || req.params.method == "isPrivate" ) ? res.end() : true;
 }
 
 main.prototype.ensureAuthenticated = function(req, res, next) {
-    // this is a private method - no direct requests are allowed
-    this.isPrivate(req, res, "ensureAuthenticated");
-    // get local vars
-    res.locals.authenticated = res.locals.authenticated || req.isAuthenticated();
-    res.locals.user = res.locals.user || ( ( typeof req.user != "undefined" ) ? req.user : false );
-    // set local vars
-    var authenticated = res.locals.authenticated;
-    var user = res.locals.user;
-    // always redirect to the homepage if not authenticated (customize?)
-    if( !authenticated || !user ) return res.redirect('/');
-    // otherwise call callback if available...
-    return (next) ? next() : true;
+	// this is a private method - no direct requests are allowed
+	this.isPrivate(req, res, "ensureAuthenticated");
+	// get local vars
+	res.locals.authenticated = res.locals.authenticated || req.isAuthenticated();
+	res.locals.user = res.locals.user || ( ( typeof req.user != "undefined" ) ? req.user : false );
+	// set local vars
+	var authenticated = res.locals.authenticated;
+	var user = res.locals.user;
+	// always redirect to the homepage if not authenticated (customize?)
+	if( !authenticated || !user ) return res.redirect('/');
+	// otherwise call callback if available...
+	return (next) ? next() : true;
 };
 
 main.prototype.isAuthenticated = function(req, res) {
-    // this is a private method - no direct requests are allowed
-    this.isPrivate(req, res, "isAuthenticated");
-    //
-    res.locals.authenticated = res.locals.authenticated || req.isAuthenticated();
-    return res.locals.authenticated;
+	// this is a private method - no direct requests are allowed
+	this.isPrivate(req, res, "isAuthenticated");
+	//
+	res.locals.authenticated = res.locals.authenticated || req.isAuthenticated();
+	return res.locals.authenticated;
 };
 
 
