@@ -22,6 +22,7 @@ main = Class.extend({
 		//
 		var self = this;
 		// template vars
+		res.locals = res.locals || {};
 		res.locals.site = brisk.loadConfig('site');
 		// get authentication status
 		res.locals.authenticated = res.locals.authenticated || req.isAuthenticated();
