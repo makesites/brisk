@@ -25,7 +25,7 @@ main = Class.extend({
 		res.locals = res.locals || {};
 		res.locals.site = brisk.loadConfig('site');
 		// get authentication status
-		res.locals.authenticated = res.locals.authenticated || req.isAuthenticated();
+		res.locals.authenticated = res.locals.authenticated || this.isAuthenticated( req, res );
 		// access the user session in the views
 		res.locals.user = res.locals.user || ( ( typeof req.user != "undefined" ) ? req.user : false );
 		/*
@@ -157,9 +157,15 @@ main.prototype.ensureAuthenticated = function(req, res, next) {
 main.prototype.isAuthenticated = function(req, res) {
 	// this is a private method - no direct requests are allowed
 	this.isPrivate(req, res, "isAuthenticated");
-	//
-	res.locals.authenticated = res.locals.authenticated || req.isAuthenticated();
-	return res.locals.authenticated;
+	// if authenticated flag already set, just use that
+	if( res.locals.authenticated ){
+		return res.locals.authenticated;
+	} else if(req.isAuthenticated instanceof Function) {
+		return req.isAuthenticated();
+	} else {
+		return false;
+	}
+
 };
 
 
