@@ -24,7 +24,6 @@ var controller = Parent.extend({
 		this.render(req, res);
 	}
 
-
 });
 
 // helpers
