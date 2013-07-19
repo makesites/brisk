@@ -24,6 +24,7 @@ main = Class.extend({
 		// template vars
 		res.locals = res.locals || {};
 		res.locals.site = brisk.loadConfig('site');
+		res.locals.debug = this.options.debug;
 		// get authentication status
 		res.locals.authenticated = res.locals.authenticated || this.isAuthenticated( req, res );
 		// access the user session in the views
