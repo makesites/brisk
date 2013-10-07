@@ -29,6 +29,8 @@ main = Class.extend({
 		res.locals.authenticated = res.locals.authenticated || this.isAuthenticated( req, res );
 		// access the user session in the views
 		res.locals.user = res.locals.user || ( ( typeof req.user != "undefined" ) ? req.user : false );
+		// #43 access the view name during render
+		res.locals.page = res.view;
 		/*
 		if( typeof req.user != "undefined" ){
 			res.locals({ user : req.user });
