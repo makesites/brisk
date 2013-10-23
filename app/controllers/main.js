@@ -36,11 +36,13 @@ main = Class.extend({
 			res.locals({ user : req.user });
 		}
 		*/
+		// find the right view
+		var view = brisk.findView( res.view || "default" );
 		//console.log( path.join(__dirname, '/views/'+res.template) );
 		//res.render(res.view, { layout: path.join(__dirname, '/views/'+res.template) });
 		// #37 passing options to render
 		var options =  res.options || {};
-		res.render(res.view, options, function(err, result) {
+		res.render(view, options, function(err, result) {
 			//console.log('Render result:', result);
 			// compact output by removing carriage returns, tabs and extra whitespace
 			var html = (self.options.debug) ? result : result.replace(/(\r\n|\n|\r|\t)/gm,"").replace(/\s+/gm, " ");
