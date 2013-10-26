@@ -16,6 +16,27 @@ var helper = Parent.extend({
 		return brisk.files( dir );
 	},
 
+	get: function( dir ) {
+		var module = path.join( this.dir, '../app/', dir );
+		return require( module );
+	},
+
+	getController: function( controller ) {
+		return this.get("controllers/"+ controller );
+	},
+
+	getHelper: function( helper ) {
+		return this.get("helpers/"+ helper );
+	},
+
+	getModel: function( model ) {
+		return this.get("models/"+ model );
+	},
+
+	getView: function( view ) {
+		return this.get("views/"+ view );
+	},
+
 	self: function() {
 		//return this.express;
 	}
