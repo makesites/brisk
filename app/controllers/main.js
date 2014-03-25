@@ -38,10 +38,18 @@ main = Class.extend({
 		*/
 		// find the right view
 		var view = brisk.findView( res.view || "default" );
+
 		//console.log( path.join(__dirname, '/views/'+res.template) );
 		//res.render(res.view, { layout: path.join(__dirname, '/views/'+res.template) });
 		// #37 passing options to render
 		var options =  res.options || {};
+		// set default layout
+		if( options.layout === false ){
+			// do nothing...
+		} else {
+			var layout = options.layout || this.name || 'default';
+			options.layout = brisk.findLayout( layout );
+		}
 		res.render(view, options, function(err, result) {
 			//console.log('Render result:', result);
 			// compact output by removing carriage returns, tabs and extra whitespace
