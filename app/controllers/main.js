@@ -44,7 +44,7 @@ main = Class.extend({
 		// #37 passing options to render
 		var options =  res.options || {};
 		// set default layout
-		if( options.layout === false ){
+		if( options.layout === false || typeof options.layout == "undefined" ){
 			// do nothing...
 		} else {
 			var layout = options.layout || this.name || 'default';
