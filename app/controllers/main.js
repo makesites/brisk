@@ -38,13 +38,13 @@ main = Class.extend({
 		*/
 		// find the right view
 		var view = brisk.findView( res.view || "default" );
-
+		var layout_path = req.site.config.paths.layouts || false;
 		//console.log( path.join(__dirname, '/views/'+res.template) );
 		//res.render(res.view, { layout: path.join(__dirname, '/views/'+res.template) });
 		// #37 passing options to render
 		var options =  res.options || {};
 		// set default layout
-		if( options.layout === false || typeof options.layout == "undefined" ){
+		if( !options.layout && !layout_path ){
 			// do nothing...
 		} else {
 			var layout = options.layout || this.name || 'default';

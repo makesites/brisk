@@ -7,6 +7,10 @@ module.exports = {
 		"controller": "main"
 	},
 
+	paths: {
+		layouts: false,
+	},
+
 	api : {}
 
 }
