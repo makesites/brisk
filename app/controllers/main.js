@@ -51,6 +51,7 @@ main = Class.extend({
 			options.layout = brisk.findLayout( layout );
 		}
 		res.render(view, options, function(err, result) {
+			if( err ) console.log( err );
 			//console.log('Render result:', result);
 			// compact output by removing carriage returns, tabs and extra whitespace
 			var html = (self.options.debug) ? result : result.replace(/(\r\n|\n|\r|\t)/gm,"").replace(/\s+/gm, " ");
