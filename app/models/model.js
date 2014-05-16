@@ -1,4 +1,5 @@
-var Main = require("../helpers/class");
+var Main = require("../helpers/class"),
+	crypto = require("crypto");
 
 var model = Main.extend({
 	init: function( site ){
@@ -35,8 +36,17 @@ var model = Main.extend({
 	update: function( data, callback ) {
 
 	},
-	delete: function( data, callback ) {
+	"delete": function( data, callback ) {
 
+	},
+
+	// Helpers
+	createCID: function(){
+		var now = (new Date()).getTime();
+		var random = Math.floor(Math.random() * 1000000000);
+		var seed = parseInt( now + random ).toString(36).toLowerCase();
+		var id = crypto.createHash('md5').update( seed ).digest("hex");
+		return id;
 	}
 
 });
