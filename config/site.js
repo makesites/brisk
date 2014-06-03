@@ -1,3 +1,4 @@
 module.exports = {
-	name : "Website Name"
+	name : "Website Name",
+	email : "support@sitename.com"
 }
