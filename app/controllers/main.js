@@ -53,6 +53,8 @@ main = Class.extend({
 		res.render(view, options, function(err, result) {
 			if( err ) console.log( err );
 			//console.log('Render result:', result);
+			// fallback
+			result = result || "";
 			// compact output by removing carriage returns, tabs and extra whitespace
 			var html = (self.options.debug) ? result : result.replace(/(\r\n|\n|\r|\t)/gm,"").replace(/\s+/gm, " ");
 			res.send(html); // send rendered HTML back to client
