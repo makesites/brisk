@@ -35,9 +35,9 @@
 		"node": ">0.6.x"
 	},
 	"dependencies": {
-	"express": "3.x",
-	"underscore": "1.x",
-	"connect" : "2.x",
-	"connect-xcors": "0.5.2"
+		"express": "4.x",
+		"underscore": "1.x",
+		"connect": "3.x",
+		"connect-xcors": "0.5.2"
 	}
 }
