@@ -6,6 +6,7 @@
  * MIT Licensed.
  */
 
+var _ = require("underscore");
 
 	var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
 	// The base Class implementation (does nothing)
@@ -24,9 +25,8 @@
 		// Copy the properties over onto the new prototype
 		for (var name in prop) {
 			// Check if we're overwriting an existing function
-			prototype[name] = typeof prop[name] == "function" &&
-				typeof _super[name] == "function" && fnTest.test(prop[name]) ?
-				(function(name, fn){
+			if( typeof prop[name] == "function" && typeof _super[name] == "function" && fnTest.test(prop[name]) ){
+				prototype[name] = (function(name, fn){
 					return function() {
 						var tmp = this._super;
 
@@ -41,8 +41,14 @@
 
 						return ret;
 					};
-				})(name, prop[name]) :
-				prop[name];
+				})(name, prop[name]);
+			} else if( typeof prop[name] == "object" && typeof _super[name] == "object" ) {
+				// extend if it is an object
+				prototype[name] = _.extend( {}, _super[name], prop[name] );
+			} else {
+				// simply (over)write the new method
+				prototype[name] = prop[name];
+			}
 		}
 
 		// The dummy class constructor
