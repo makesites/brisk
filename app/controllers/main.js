@@ -5,7 +5,8 @@ var brisk = require("brisk"),
 main = Class.extend({
 	// defaults
 	options: {
-		debug : DEV
+		debug : DEV,
+		private: [] // an array to explicitly specify methods that should be inaccessible
 	},
 
 	index: function(req, res){
