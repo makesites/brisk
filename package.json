@@ -1,6 +1,6 @@
 {
 	"name": "brisk",
-	"version": "0.8.1",
+	"version": "0.8.2",
 	"description": "An MVC framework for Node.js, built on top of Express. Brisk omits most of the platform-specific conventions and returns application development to a more traditional object-oriented structure.",
 	"author": "makesites",
 	"contributors": [
@@ -35,7 +35,7 @@
 		"node": ">0.6.x"
 	},
 	"dependencies": {
-		"express": "4.x",
+		"express": "4.4.4",
 		"underscore": "1.x",
 		"connect": "3.x",
 		"connect-xcors": "0.5.2"
