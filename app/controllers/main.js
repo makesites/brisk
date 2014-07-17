@@ -32,6 +32,8 @@ main = Class.extend({
 		res.locals.user = res.locals.user || ( ( typeof req.user != "undefined" ) ? req.user : false );
 		// #43 access the view name during render
 		res.locals.page = res.view;
+		// store session info
+		res.locals.session = req.session;
 		/*
 		if( typeof req.user != "undefined" ){
 			res.locals({ user : req.user });
