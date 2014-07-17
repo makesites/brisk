@@ -1,5 +1,4 @@
-var brisk = require("brisk"),
-	Class = require("../helpers/class"),
+var Class = require("../helpers/class"),
 	DEV = !(process.env.NODE_ENV == "production");
 
 main = Class.extend({
@@ -22,9 +21,10 @@ main = Class.extend({
 		this.isPrivate(req, res, "render");
 		//
 		var self = this;
+		var site = req.site;
 		// template vars
 		res.locals = res.locals || {};
-		res.locals.site = brisk.loadConfig('site');
+		res.locals.site = site.loadConfig('site');
 		res.locals.debug = this.options.debug;
 		// get authentication status
 		res.locals.authenticated = res.locals.authenticated || this.isAuthenticated( req, res );
@@ -40,7 +40,7 @@ main = Class.extend({
 		}
 		*/
 		// find the right view
-		var view = brisk.findView( res.view || "default" );
+		var view = site.findView( res.view || "default" );
 		var layout_path = req.site.config.paths.layouts || false;
 		//console.log( path.join(__dirname, '/views/'+res.template) );
 		//res.render(res.view, { layout: path.join(__dirname, '/views/'+res.template) });
@@ -51,7 +51,7 @@ main = Class.extend({
 			// do nothing...
 		} else {
 			var layout = options.layout || this.name || 'default';
-			options.layout = brisk.findLayout( layout );
+			options.layout = site.findLayout( layout );
 		}
 		res.render(view, options, function(err, result) {
 			if( err ) console.log( err );
