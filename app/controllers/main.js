@@ -69,6 +69,14 @@ main = Class.extend({
 		res.redirect('/');
 	},
 
+	_404: function(req, res){
+		// logic...
+		res.view = "404";
+		// render
+		res.status(404); // HTTP status 404: NotFound
+		this.render(req, res);
+	},
+
 	rest : function( methods, req, res ){
 		// this is a private method - no direct requests are allowed
 		this.isPrivate(req, res, "rest");
