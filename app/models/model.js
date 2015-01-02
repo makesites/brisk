@@ -1,5 +1,5 @@
-var Main = require("../helpers/class"),
-	crypto = require("crypto");
+var Main = require('../helpers/class'),
+	crypto = require('crypto');
 
 var model = Main.extend({
 	init: function( site ){
@@ -47,6 +47,20 @@ var model = Main.extend({
 		var seed = parseInt( now + random ).toString(36).toLowerCase();
 		var id = crypto.createHash('md5').update( seed ).digest("hex");
 		return id;
+	},
+
+	// return complete data of an array
+	each: function(data, callback){
+
+		// if no key is defined, assume it's the id
+		for( var i in data ){
+			if(typeof data[i] == "string") data[i] = { id : data[i] };
+		}
+		var query = { $or: data };
+
+		// execute query
+		this.find(query, callback);
+
 	}
 
 });
