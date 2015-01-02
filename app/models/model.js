@@ -40,15 +40,6 @@ var model = Main.extend({
 
 	},
 
-	// Helpers
-	createCID: function(){
-		var now = (new Date()).getTime();
-		var random = Math.floor(Math.random() * 1000000000);
-		var seed = parseInt( now + random ).toString(36).toLowerCase();
-		var id = crypto.createHash('md5').update( seed ).digest("hex");
-		return id;
-	},
-
 	// return complete data of an array
 	each: function(data, callback){
 
@@ -61,6 +52,39 @@ var model = Main.extend({
 		// execute query
 		this.find(query, callback);
 
+	},
+
+	// Helpers
+	createCID: function(){
+		var now = (new Date()).getTime();
+		var random = Math.floor(Math.random() * 1000000000);
+		var seed = parseInt( now + random ).toString(36).toLowerCase();
+		var id = crypto.createHash('md5').update( seed ).digest("hex");
+		return id;
+	},
+
+	// delete certain properties from models
+	filterData: function(data, properties){
+		// fallbacks
+		data = data || {};
+		properties = properties || [];
+		//
+		for( var i in properties){
+			delete data[ properties[i] ];
+		}
+		return data;
+	},
+
+	// hide id and use cid for public queries
+	normalID: function( data ){
+		// fallbacks
+		data = data || {};
+		//
+		if( data.cid ){
+			data.id = data.cid;
+			delete data.cid;
+		}
+		return data;
 	}
 
 });
