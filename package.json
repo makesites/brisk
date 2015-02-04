@@ -37,7 +37,6 @@
 	"dependencies": {
 		"express": "4.4.4",
 		"underscore": "1.x",
-		"connect": "3.x",
-		"connect-xcors": "0.5.2"
+		"connect": "3.x"
 	}
 }
