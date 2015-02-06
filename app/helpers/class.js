@@ -66,9 +66,42 @@ var _ = require("underscore");
 
 		// And make this class extendable
 		Class.extend = arguments.callee;
+		Class.inherit = inherit.bind(Class);
 
 		return Class;
 	};
+
+
+	// Inherit from more than one classes
+	// Reference: https://gist.github.com/tracend/8681804
+	inherit = function(){
+		var classes = Array.prototype.slice.call(arguments, 0);
+		// prerequisites
+		if( !classes.length ) return;
+		// the first class is the parent
+		var Parent = classes.pop(),
+			methods = {};
+
+		for( var i in classes ){
+			var Child = classes[i];
+
+			for( var name in Child.prototype ){
+				if( Parent.prototype[name]){
+					var value = Child.prototype[name];
+					if( typeof value == "object" ){
+						methods[name] = _.extend({}, Parent.prototype[name], value);
+					}
+					// replace existing funtion
+					if( typeof value == "function" ){
+						methods[name] = value;
+					}
+				} else {
+					methods[name] = value;
+				}
+			}
+		}
+		return this.extend( methods );
+	}
 
 
 module.exports = Class;
