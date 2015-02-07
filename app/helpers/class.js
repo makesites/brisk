@@ -75,21 +75,21 @@ var _ = require("underscore");
 	// Inherit from more than one classes
 	// Reference: https://gist.github.com/tracend/8681804
 	inherit = function(){
+
 		var classes = Array.prototype.slice.call(arguments, 0);
 		// prerequisites
 		if( !classes.length ) return;
 		// the first class is the parent
-		var Parent = classes.pop(),
-			methods = {};
+		var Parent = classes.shift(),
+			methods = Parent.prototype;
 
 		for( var i in classes ){
 			var Child = classes[i];
-
 			for( var name in Child.prototype ){
-				if( Parent.prototype[name]){
-					var value = Child.prototype[name];
+				var value = Child.prototype[name];
+				if( methods[name]){
 					if( typeof value == "object" ){
-						methods[name] = _.extend({}, Parent.prototype[name], value);
+						methods[name] = _.extend({}, methods[name], value);
 					}
 					// replace existing funtion
 					if( typeof value == "function" ){
@@ -100,6 +100,7 @@ var _ = require("underscore");
 				}
 			}
 		}
+
 		return this.extend( methods );
 	}
 
