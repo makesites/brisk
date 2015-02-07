@@ -1,11 +1,18 @@
-var Main = require('../helpers/class'),
+var Model = require('../helpers/class'),
 	crypto = require('crypto');
 
-var model = Main.extend({
+var model = Model.extend({
+
+	options: {
+		backend: false
+	},
+
 	init: function( site ){
 		// db
-		this.db = site.modules.db;
-
+		if( site && !this.db ) this.db = site.modules.db || null;
+		this.backend = this.backend || this.options.backend || false;
+		// continue with parent (if available)
+		if( Model.prototype.init ) return Model.prototype.init.call(this, site );
 	},
 
 	schema : function(){
