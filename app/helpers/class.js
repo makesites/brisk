@@ -81,17 +81,19 @@ var _ = require("underscore");
 		if( !classes.length ) return;
 		// the first class is the parent
 		var Parent = classes.shift(),
-			methods = Parent.prototype;
+			Concat; // container of the concatenated class
 
 		for( var i in classes ){
 			var Child = classes[i];
+			var methods = []; // start fresh...
 			for( var name in Child.prototype ){
 				var value = Child.prototype[name];
-				if( methods[name]){
+				// if something exists on the parent
+				if( Parent.prototype[name]){
 					if( typeof value == "object" ){
-						methods[name] = _.extend({}, methods[name], value);
+						methods[name] = _.extend({}, Parent.prototype[name], value);
 					}
-					// replace existing funtion
+					// replace existing function
 					if( typeof value == "function" ){
 						methods[name] = value;
 					}
@@ -99,9 +101,11 @@ var _ = require("underscore");
 					methods[name] = value;
 				}
 			}
+			Concat = Parent.extend( methods );
+			Parent = Concat; // if we need to loop start from the group
 		}
 
-		return this.extend( methods );
+		return Concat;
 	}
 
 
