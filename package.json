@@ -30,7 +30,7 @@
 		"node": ">0.6.x"
 	},
 	"dependencies": {
-		"express": "4.4.4",
+		"express": "4.12.4",
 		"underscore": "1.x",
 		"connect": "3.x"
 	}
