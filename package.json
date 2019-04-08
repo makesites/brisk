@@ -24,12 +24,7 @@
 	"bugs": {
 		"url": "https://github.com/makesites/brisk/issues"
 	},
-	"licenses": [
-		{
-			"type": "Apache License, Version 2.0",
-			"url": "http://makesites.org/licenses/APACHE-2.0"
-		}
-	],
+	"license": "Apache-2.0",
 	"main": "./index.js",
 	"engines": {
 		"node": ">0.6.x"
