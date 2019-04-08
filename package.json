@@ -1,6 +1,6 @@
 {
 	"name": "brisk",
-	"version": "0.9.1",
+	"version": "0.9.2",
 	"description": "An MVC framework for Node.js, built on top of Express. Brisk omits most of the platform-specific conventions and returns application development to a more traditional object-oriented structure.",
 	"author": "makesites",
 	"contributors": [
