@@ -14,9 +14,7 @@
 		}
 	],
 	"homepage": "http://makesites.org/brisk",
-	"keywords": [
-		"node", "express", "framework", "brisk"
-	],
+	"keywords": ["node", "express", "framework", "brisk"],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/makesites/brisk"
@@ -30,8 +28,8 @@
 		"node": ">=10.x.x"
 	},
 	"dependencies": {
-		"express": "4.12.4",
-		"underscore": "1.x",
-		"connect": "3.x"
+		"connect": "3.6.6",
+		"express": "4.16.4",
+		"underscore": "1.9.1"
 	}
 }
