@@ -13,7 +13,7 @@
 			"email": "lyndelt@gmail.com"
 		}
 	],
-	"homepage": "http://makesites.org/brisk",
+	"homepage": "http://makesites.org/projects/brisk",
 	"keywords": ["node", "express", "framework", "brisk"],
 	"repository": {
 		"type": "git",
