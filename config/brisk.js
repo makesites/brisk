@@ -1,7 +1,7 @@
 var path = require("path");
 
 module.exports = {
-	root : path.normalize(__dirname + "/../../../"),
+	root : path.dirname(require.main.filename) +"/",
 
 	defaults: {
 		"controller": "main"
