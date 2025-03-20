@@ -24,7 +24,7 @@ main = Class.extend({
 		var site = req.site;
 		// template vars
 		res.locals = res.locals || {};
-		res.locals.site = site.loadConfig('site');
+		res.locals.site = site.getConfig('site');
 		res.locals.debug = this.options.debug;
 		// get authentication status
 		res.locals.authenticated = res.locals.authenticated || this.isAuthenticated( req, res );
