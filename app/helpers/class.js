@@ -52,29 +52,30 @@ var _ = require("underscore");
 		}
 
 		// The dummy class constructor
-		function Class() {
+		function Child() {
 			// All construction is actually done in the init method
 			if ( !initializing && this.init )
 				this.init.apply(this, arguments);
 		}
 
 		// Populate our constructed prototype object
-		Class.prototype = prototype;
+		Child.prototype = prototype;
 
 		// Enforce the constructor to be what we expect
-		Class.prototype.constructor = Class;
+		Child.prototype.constructor = Class;
 
 		// And make this class extendable
-		Class.extend = arguments.callee;
-		Class.inherit = inherit.bind(Class);
+		Child.extend = Class.extend.bind( Child ); //arguments.callee;
+		Child.inherit = Class.inherit.bind( Child );
 
-		return Class;
+		return Child;
+
 	};
 
 
 	// Inherit from more than one classes
 	// Reference: https://gist.github.com/tracend/8681804
-	inherit = function(){
+	Class.inherit = function(){
 
 		var classes = Array.prototype.slice.call(arguments, 0);
 		// prerequisites
